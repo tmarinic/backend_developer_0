@@ -1,0 +1,28 @@
+Baza podataka jednostavne knjiznice
+Knjižnica svojim članovima izdaje članske iskaznice.
+Knjige su kategorizirane po žanrovima.
+Svaka knjiga ima jedinstveni ISBN, ali može postojati više kopija iste knjige.
+Knjižnica treba pratiti svaku fizičku kopiju knjige i stanje dostupnosti iste.
+Članovi mogu posuđivati ​​knjige na određeno vrijeme, a zakašnjeli povrati povlače novčanu kaznu.
+ER Diagram
+Entiteti:
+
+Član
+Knjiga
+Kategorija (Žanr)
+Kopija
+Posudba
+Relacije
+Članovi mogu posuditi više knjiga.
+Svaka knjiga pripada jednom žanru.
+Svaka knjiga može imati više primjeraka.
+Svaki zapis o posudbi povezan je s jednim članom i jednim primjerkom knjige.
+SQL naredbe za kreiranje baze
+kreirajte bazu i popunite tablice sa proizvoljnim podacima
+
+
+Zadaca:
+Napraviti Upite na bazi podataka "knjiznica"
+1.Navedite sve članove koji su posudili knjige, zajedno s naslovima knjiga koje su posudili.
+2.Pronađite članove koji imaju zakašnjele knjige.
+3.Pronađite sve žanrove i broj dostupnih knjiga u svakom žanru.

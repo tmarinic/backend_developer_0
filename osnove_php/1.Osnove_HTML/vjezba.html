@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Vjezba</h1>
+    <table border="1">
+    <tr>
+        <td>Ime:</td>
+        <td><input type="text" id="ime" name="ime"></td>
+    </tr>
+    <tr>
+        <td>Prezime:</td>
+        <td><input type="text" id="prezime" name="prezime"></td>
+    </tr>
+    <tr>
+        <td>Email:</td>
+        <td><input type="email" id="email" name="email"></td>
+    </tr>
+    <tr>
+        <td>Država:</td>
+        <td>
+            <select id="drzava" name="drzava">
+                <option value="Hrvatska">Hrvatska</option>
+                <option value="Srbija">Srbija</option>
+                <option value="Bosna i Hercegovina">Bosna i Hercegovina</option>
+                <option value="Slovenija">Slovenija</option>
+                <option value="Crna Gora">Crna Gora</option>
+                <option value="Makedonija">Makedonija</option>
+                <option value="Austrija">Austrija</option>
+                <option value="Njemačka">Njemačka</option>
+                <option value="Italija">Italija</option>
+                <option value="Francuska">Francuska</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>Spol:</td>
+        <td>
+            <label><input type="radio" name="spol" value="muški"> Muški</label>
+            <label><input type="radio" name="spol" value="ženski"> Ženski</label>
+        </td>
+    </tr>
+    <tr>
+        <td>Zanima me:</td>
+        <td class="zanimanje-buttons">
+            <label class="zanimanje-button"><input type="checkbox" name="zanimanje" value="Plivanje"> Plivanje</label>
+            <label class="zanimanje-button"><input type="checkbox" name="zanimanje" value="Penjanje"> Penjanje</label>
+            <label class="zanimanje-button"><input type="checkbox" name="zanimanje" value="Programiranje"> Programiranje</label>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2"><button type="submit">Pošalji</button></td>
+    </tr>
+</table>
+
+</body>
+</html>
