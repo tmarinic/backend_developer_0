@@ -644,23 +644,23 @@ CTRL+Z
 - napraviti proceduru koja će u tablici proizvodi mijenjati količine ovisno o količini prodanih proizvoda
  
  ```
-DROP DATABASE IF EXISTS `pekara`;
+DROP DATABASE IF EXISTS `autodijelovi`;
 
-CREATE DATABASE IF NOT EXISTS `pekara` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `pekara`;
+CREATE DATABASE IF NOT EXISTS `autodijelovi` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `autodijelovi`;
 
 CREATE TABLE IF NOT EXISTS `proizvodi` (
-    `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+    `id` int UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `naziv` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
     `kolicina` int UNSIGNED NOT NULL
 );
 
 INSERT INTO `proizvodi` (`naziv`, `kolicina`) VALUES
-    ('kruh', '1000'),
-    ('pecivo', '500'),
-    ('burek', '200'),
-    ('buhtla', '200'),
-    ('sendvic', '100');
+    ('filter za zrak', '100'),
+    ('svjećica', '150'),
+    ('brake disk', '80'),
+    ('akoumulator', '50'),
+    ('ulje za motor', '200');
 
 -- procedura za izmjenu količine
 DROP PROCEDURE IF EXISTS `izmjena_kolicine`;
@@ -677,20 +677,28 @@ BEGIN
 
     START TRANSACTION;
 
+    -- Provjera da li je količina 0
     IF prodana_kolicina = 0 THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Izmjena nije potrebna';
     END IF;
 
-    IF prodan_proizvod_id NOT IN (SELECT proizvod.id FROM proizvodi)
+    -- Provjera da li proizvod postoji
+    SELECT COUNT(*) INTO @proizvod_count
+    FROM proizvodi
+    WHERE id = prodan_proizvod_id;
+
+    IF @proizvod_count = 0 THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Proizvod ne postoji';
     ELSE
+        -- Dohvaćanje stare količine
         SELECT kolicina
             INTO stara_kolicina
             FROM proizvodi
             WHERE id = prodan_proizvod_id
-            FOR UPDATE; -- race condition (osigurava da nema stranih upisa u navedenu tablicu, zaključava je dok se ne izvrši naša transakcija)
+            FOR UPDATE;
     END IF;
 
+    -- Provjera ima li dovoljno na skladištu
     IF (stara_kolicina - prodana_kolicina) >= 0 THEN
         UPDATE proizvodi
             SET kolicina = (stara_kolicina - prodana_kolicina)
@@ -699,7 +707,7 @@ BEGIN
         COMMIT;
     ELSE
         ROLLBACK;
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Nema dovoljno na zalihi';
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Nema dovoljno na skladištu';
     END IF;
 
 END //
