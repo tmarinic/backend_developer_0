@@ -1,3 +1,6 @@
+Prezentacije:
+https://drive.google.com/drive/folders/1--QtimpQPtwDaIsLqzWa4C0MaVWfoxUI
+
 ### Laravel kontroler i auth middleware (bearer token, API JSON response sa status kodom)
 
 - napravljeno prema ovim primjerima (ovo je u biti jednostavna simulacija Laravel Passport/Sanctum)
